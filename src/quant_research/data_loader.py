@@ -35,3 +35,15 @@ def save_market_data(data: pd.DataFrame, ticker: str) -> Path:
     data.to_csv(output_path)
 
     return output_path
+
+
+def save_processed_data(data: pd.DataFrame, ticker: str) -> Path:
+    """Save processed market data as a CSV file."""
+
+    output_directory = Path("data/processed")
+    output_directory.mkdir(parents=True, exist_ok=True)
+
+    output_path = output_directory / f"{ticker.lower()}_features.csv"
+    data.to_csv(output_path)
+
+    return output_path
