@@ -29,7 +29,7 @@ quant-research-lab/
 ## Setup
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/quant-research-lab.git
+git clone https://github.com/4mir4bbas/quant-research-lab.git
 cd quant-research-lab
 
 python -m venv .venv
