@@ -72,3 +72,18 @@ The repository structure and development environment are being initialized.
 ## Disclaimer
 
 This project is for research and educational purposes only and is not financial advice.
+
+
+## Results
+
+### Adjusted Closing Price
+
+![SPY Price](outputs/figures/spy_price.png)
+
+### Cumulative Return
+
+![SPY Cumulative Return](outputs/figures/spy_cumulative_return.png)
+
+### Rolling Volatility
+
+![SPY Volatility](outputs/figures/spy_volatility.png)

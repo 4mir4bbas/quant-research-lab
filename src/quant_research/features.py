@@ -11,6 +11,10 @@ def add_return_features(data: pd.DataFrame) -> pd.DataFrame:
 
     result["daily_return"] = result["Close"].pct_change()
 
+    result["cumulative_return"] = (
+        1 + result["daily_return"].fillna(0)
+    ).cumprod() - 1
+
     result["volatility_20d"] = (
         result["daily_return"]
         .rolling(window=20)
