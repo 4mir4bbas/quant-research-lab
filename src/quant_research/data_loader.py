@@ -23,9 +23,24 @@ def download_market_data(
     if data.empty:
         raise ValueError(f"No data was returned for ticker: {ticker}")
 
-    data.index.name = "Date"
+    data = normalize_market_data(data)
 
     return data
+
+
+def normalize_market_data(
+    data: pd.DataFrame,
+) -> pd.DataFrame:
+    """Convert downloaded market data to flat columns."""
+
+    result = data.copy()
+
+    if isinstance(result.columns, pd.MultiIndex):
+        result.columns = result.columns.get_level_values(0)
+
+    result.index.name = "Date"
+
+    return result
 
 
 def save_market_data(data: pd.DataFrame, ticker: str) -> Path:
