@@ -17,10 +17,13 @@ def download_market_data(
         end=end_date,
         auto_adjust=True,
         progress=False,
+        multi_level_index=False,
     )
 
     if data.empty:
         raise ValueError(f"No data was returned for ticker: {ticker}")
+
+    data.index.name = "Date"
 
     return data
 

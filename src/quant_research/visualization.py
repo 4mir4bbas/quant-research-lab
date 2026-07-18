@@ -95,3 +95,122 @@ def save_volatility_chart(
     plt.close(figure)
 
     return output_path
+
+
+def save_strategy_equity_chart(
+    data: pd.DataFrame,
+    ticker: str,
+) -> Path:
+    """Compare strategy equity with buy-and-hold equity."""
+
+    required_columns = {
+        "buy_hold_equity",
+        "strategy_equity",
+    }
+
+    missing_columns = required_columns.difference(data.columns)
+
+    if missing_columns:
+        missing = ", ".join(sorted(missing_columns))
+        raise ValueError(
+            f"Input data is missing required columns: {missing}"
+        )
+
+    output_directory = Path("outputs/figures")
+    output_directory.mkdir(parents=True, exist_ok=True)
+
+    output_path = (
+        output_directory
+        / f"{ticker.lower()}_strategy_equity.png"
+    )
+
+    figure, axis = plt.subplots(figsize=(12, 6))
+
+    axis.plot(
+        data.index,
+        data["buy_hold_equity"],
+        label="Buy and Hold",
+    )
+
+    axis.plot(
+        data.index,
+        data["strategy_equity"],
+        label="Moving Average Strategy",
+    )
+
+    axis.set_title(
+        f"{ticker}: Strategy vs Buy and Hold"
+    )
+    axis.set_xlabel("Date")
+    axis.set_ylabel("Growth of $1")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=150)
+    plt.close(figure)
+
+    return output_path
+
+
+def save_moving_average_chart(
+    data: pd.DataFrame,
+    ticker: str,
+) -> Path:
+    """Plot closing price and moving averages."""
+
+    required_columns = {
+        "Close",
+        "short_ma",
+        "long_ma",
+    }
+
+    missing_columns = required_columns.difference(data.columns)
+
+    if missing_columns:
+        missing = ", ".join(sorted(missing_columns))
+        raise ValueError(
+            f"Input data is missing required columns: {missing}"
+        )
+
+    output_directory = Path("outputs/figures")
+    output_directory.mkdir(parents=True, exist_ok=True)
+
+    output_path = (
+        output_directory
+        / f"{ticker.lower()}_moving_averages.png"
+    )
+
+    figure, axis = plt.subplots(figsize=(12, 6))
+
+    axis.plot(
+        data.index,
+        data["Close"],
+        label="Close",
+    )
+
+    axis.plot(
+        data.index,
+        data["short_ma"],
+        label="50-Day MA",
+    )
+
+    axis.plot(
+        data.index,
+        data["long_ma"],
+        label="200-Day MA",
+    )
+
+    axis.set_title(
+        f"{ticker} Moving-Average Crossover"
+    )
+    axis.set_xlabel("Date")
+    axis.set_ylabel("Price")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=150)
+    plt.close(figure)
+
+    return output_path

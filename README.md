@@ -87,3 +87,17 @@ This project is for research and educational purposes only and is not financial 
 ### Rolling Volatility
 
 ![SPY Volatility](outputs/figures/spy_volatility.png)
+
+
+### Moving-Average Strategy
+
+The baseline strategy takes a long position when the
+50-day moving average is above the 200-day moving average.
+
+![SPY Moving Averages](outputs/figures/spy_moving_averages.png)
+
+### Strategy Performance
+
+The strategy is compared with a passive buy-and-hold benchmark.
+
+![Strategy Comparison](outputs/figures/spy_strategy_equity.png)
